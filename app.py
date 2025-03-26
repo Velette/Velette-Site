@@ -37,12 +37,6 @@ login_manager.login_view = 'login'
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
 
-# Initialisation de Flask-Bcrypt pour un hachage plus sécurisé des mots de passe
-bcrypt = Bcrypt(app)
-
-# Initialisation de la protection CSRF
-csrf = CSRFProtect(app)
-
 # Initialisation du logging
 logging.basicConfig(filename='app.log', level=logging.ERROR)
 
@@ -134,7 +128,7 @@ def supprimer_reservation(id):
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-   form = SignupForm()
+    form = SignupForm()
 
     if form.validate_on_submit():
         username = form.username.data
