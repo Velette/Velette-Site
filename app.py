@@ -11,7 +11,7 @@ import logging
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 # Configuration de l'URI de la base de données et de la clé secrète
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///velette.db')  # Utilisation de la variable d'environnement
