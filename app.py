@@ -3,10 +3,23 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField
+from wtforms.validators import DataRequired, Email, Length
 from flask_wtf.csrf import CSRFProtect
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv  # Importation de dotenv pour charger le fichier .env
 import logging  
+
+
+class SignupForm(FlaskForm):
+    username = StringField('Nom d\'utilisateur', validators=[DataRequired()])
+    password = PasswordField('Mot de passe', validators=[DataRequired(), Length(min=8)])
+    nom = StringField('Nom', validators=[DataRequired()])
+    prenom = StringField('Prénom', validators=[DataRequired()])
+    ville = StringField('Ville', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+
 
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
@@ -121,32 +134,36 @@ def supprimer_reservation(id):
 
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
-        nom = request.form['nom']
-        prenom = request.form['prenom']
-        ville = request.form['ville']
-        email = request.form['email']
-        
+   form = SignupForm()
+
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        nom = form.nom.data
+        prenom = form.prenom.data
+        ville = form.ville.data
+        email = form.email.data
+
+        # Vérifier si l'utilisateur ou l'email existe déjà
         if User.query.filter_by(username=username).first():
             flash('Ce nom d\'utilisateur existe déjà!', 'danger')
             return redirect(url_for('signup'))
-        
+
         if User.query.filter_by(email=email).first():
             flash('Cet e-mail est déjà utilisé!', 'danger')
             return redirect(url_for('signup'))
 
+        # Hachage du mot de passe
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
         new_user = User(username=username, password=hashed_password, nom=nom, prenom=prenom, ville=ville, email=email)
         db.session.add(new_user)
         db.session.commit()
-        
+
         flash('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success')
         return redirect(url_for('login'))
-    
-    return render_template('signup.html')
+
+    return render_template('signup.html', form=form)
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
