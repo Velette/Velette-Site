@@ -30,6 +30,9 @@ load_dotenv()
 
 app = Flask(__name__, static_folder='static')
 
+# Activer le mode debug
+app.config['DEBUG'] = True  # Ajout du mode debug
+
 # Configuration de l'URI de la base de données et de la clé secrète
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///velette.db')  # Utilisation de la variable d'environnement
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', os.urandom(24))  # Utilisation de la variable d'environnement ou d'une clé aléatoire si elle n'est pas définie
@@ -198,8 +201,9 @@ def login():
                 flash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger')
 
         except Exception as e:
-            app.logger.error(f"Erreur lors de la tentative de connexion: {e}")
-            flash('Une erreur est survenue lors de la connexion. Veuillez réessayer.', 'danger')
+    app.logger.error(f"Erreur lors de la tentative de connexion: {e}")
+    flash(f"Une erreur est survenue lors de la connexion: {e}", 'danger')
+
 
     return render_template('login.html', form=form)
 
