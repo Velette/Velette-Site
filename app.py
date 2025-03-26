@@ -135,60 +135,74 @@ def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        nom = form.nom.data
-        prenom = form.prenom.data
-        ville = form.ville.data
-        email = form.email.data
+        try:
+            # Récupération des informations du formulaire
+            username = form.username.data
+            password = form.password.data
+            nom = form.nom.data
+            prenom = form.prenom.data
+            ville = form.ville.data
+            email = form.email.data
 
-        # Vérifier si l'utilisateur ou l'email existe déjà
-        if User.query.filter_by(username=username).first():
-            flash('Ce nom d\'utilisateur existe déjà!', 'danger')
-            return redirect(url_for('signup'))
+            # Vérification si l'utilisateur ou l'email existe déjà
+            if User.query.filter_by(username=username).first():
+                flash('Ce nom d\'utilisateur existe déjà!', 'danger')
+                return redirect(url_for('signup'))
 
-        if User.query.filter_by(email=email).first():
-            flash('Cet e-mail est déjà utilisé!', 'danger')
-            return redirect(url_for('signup'))
+            if User.query.filter_by(email=email).first():
+                flash('Cet e-mail est déjà utilisé!', 'danger')
+                return redirect(url_for('signup'))
 
-        # Hachage du mot de passe
-        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            # Hachage du mot de passe
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
-        new_user = User(username=username, password=hashed_password, nom=nom, prenom=prenom, ville=ville, email=email)
-        db.session.add(new_user)
-        db.session.commit()
+            # Création du nouvel utilisateur
+            new_user = User(username=username, password=hashed_password, nom=nom, prenom=prenom, ville=ville, email=email)
+            db.session.add(new_user)
+            db.session.commit()
 
-        flash('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success')
-        return redirect(url_for('login'))
+            flash('Inscription réussie! Vous pouvez maintenant vous connecter.', 'success')
+            return redirect(url_for('login'))
+
+        except Exception as e:
+            app.logger.error(f"Erreur lors de l'inscription: {e}")
+            flash('Une erreur est survenue. Veuillez réessayer.', 'danger')
 
     return render_template('signup.html', form=form)
+
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        # Récupère les informations du formulaire
-        username = form.username.data
-        password = form.password.data
-        
-        # Recherche l'utilisateur dans la base de données
-        user = User.query.filter_by(username=username).first()
+        try:
+            # Récupère les informations du formulaire
+            username = form.username.data
+            password = form.password.data
+            
+            # Recherche l'utilisateur dans la base de données
+            user = User.query.filter_by(username=username).first()
 
-        if user and bcrypt.check_password_hash(user.password, password):
-            # Si l'utilisateur existe et le mot de passe est correct, connecter l'utilisateur
-            login_user(user)
-            flash('Connexion réussie!', 'success')
+            if user and bcrypt.check_password_hash(user.password, password):
+                # Si l'utilisateur existe et le mot de passe est correct, connecter l'utilisateur
+                login_user(user)
+                flash('Connexion réussie!', 'success')
 
-            # Redirige l'utilisateur vers la page demandée ou la page d'accueil
-            next_page = request.args.get('next')
-            return redirect(next_page or url_for('index'))  # 'index' est la page d'accueil
+                # Redirige l'utilisateur vers la page demandée ou la page d'accueil
+                next_page = request.args.get('next')
+                return redirect(next_page or url_for('index'))  # 'index' est la page d'accueil
 
-        else:
-            # Si l'utilisateur n'existe pas ou si le mot de passe est incorrect
-            flash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger')
+            else:
+                # Si l'utilisateur n'existe pas ou si le mot de passe est incorrect
+                flash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger')
+
+        except Exception as e:
+            app.logger.error(f"Erreur lors de la tentative de connexion: {e}")
+            flash('Une erreur est survenue lors de la connexion. Veuillez réessayer.', 'danger')
 
     return render_template('login.html', form=form)
+
 
 @app.route('/profil')
 @login_required

@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion - Velette</title>
+    <title>Velette</title>
+
+    <!-- Lien vers le CDN de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJp8J4S6mhkz9I0KE6Do9NfPUQ9yqj2KBlr+xaKmAVUo3fgI4kc91Dtt6m4k" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- SEO (meta description et keywords) -->
+    <meta name="description" content="Velette - Transport scolaire à Montréal, écologique, rapide et fiable">
+    <meta name="keywords" content="Velette, transport scolaire, Montréal, écologique, rapide, fiable, réservation, abonnement">
+
+
+    <!-- Navbar / Bande verte -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/abonnement">Voir les abonnements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reserver">Réserver un trajet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reservation">Gérer mes réservations</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 </head>
 <body>
     <div class="container mt-4">
