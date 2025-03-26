@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/index">Accueil</a>
+                        <a class="nav-link" href="">Accueil</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/abonnement">Voir les abonnements</a>
@@ -53,6 +53,7 @@
         {% endwith %}
 
         <form action="/login" method="POST">
+ {{ csrf_token() }}  <!-- Ajout du token CSRF ici -->
             <div class="mb-3">
                 <label for="username" class="form-label" aria-label="Nom d'utilisateur">Nom d'utilisateur :</label>
                 <input type="text" class="form-control" id="username" name="username" required aria-describedby="usernameHelp">
