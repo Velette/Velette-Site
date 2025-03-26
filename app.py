@@ -24,7 +24,6 @@ login_manager.login_view = 'login'
 bcrypt = Bcrypt(app)
 csrf = CSRFProtect(app)
 
-    app.run(debug=True)
 # Initialisation de Flask-Bcrypt pour un hachage plus sécurisé des mots de passe
 bcrypt = Bcrypt(app)
 
@@ -76,12 +75,6 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-
-@app.route('/')
-def home():
     return render_template('index.html')
 
 @app.route('/abonnement')
@@ -199,4 +192,3 @@ def internal_error(e):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
