@@ -20,6 +20,10 @@ class SignupForm(FlaskForm):
     ville = StringField('Ville', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
 
+class LoginForm(FlaskForm):
+    username = StringField('Nom d\'utilisateur', validators=[DataRequired()])
+    password = PasswordField('Mot de passe', validators=[DataRequired()])
+
 
 # Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
@@ -161,20 +165,30 @@ def signup():
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    if request.method == "POST":
-        username = request.form['username']
-        password = request.form['password']
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        # Récupère les informations du formulaire
+        username = form.username.data
+        password = form.password.data
         
+        # Recherche l'utilisateur dans la base de données
         user = User.query.filter_by(username=username).first()
+
         if user and bcrypt.check_password_hash(user.password, password):
+            # Si l'utilisateur existe et le mot de passe est correct, connecter l'utilisateur
             login_user(user)
             flash('Connexion réussie!', 'success')
+
+            # Redirige l'utilisateur vers la page demandée ou la page d'accueil
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('home'))
-        
-        flash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger')
-    
-    return render_template('login.html')
+            return redirect(next_page or url_for('index'))  # 'index' est la page d'accueil
+
+        else:
+            # Si l'utilisateur n'existe pas ou si le mot de passe est incorrect
+            flash('Nom d\'utilisateur ou mot de passe incorrect.', 'danger')
+
+    return render_template('login.html', form=form)
 
 @app.route('/profil')
 @login_required
