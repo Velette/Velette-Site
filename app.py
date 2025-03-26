@@ -17,7 +17,7 @@ app = Flask(__name__, static_folder='static')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:///velette.db')  # Utilisation de la variable d'environnement
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', os.urandom(24))  # Utilisation de la variable d'environnement ou d'une clé aléatoire si elle n'est pas définie
 
-# Initialisation de la base de données et de la gestion des sessions utilisateur
+# Initialisation de la base de données et de la gestion des sessions utilisateurs
 db = SQLAlchemy(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -62,7 +62,7 @@ class Reservation(db.Model):
 with app.app_context():
     db.create_all()
 
-# Données fictives pour les abonnements
+# Données pour les abonnements
 abonnements = {
     "Mensuel": 15,
     "Trimestriel": 45,
@@ -86,14 +86,14 @@ def abonnement():
 @login_required
 def reserver():
     if request.method == "POST":
-        nom = request.form["nom"]
+        nom = request.form["nom et prenom"]
         date = request.form["date"]
         heure = request.form["heure"]
-        depart = request.form["depart"]
-        destination = request.form["destination"]
+        adresse = request.form["adresse domicile"]
+        ecole = request.form["ecole"]
 
         # Crée la réservation et associe-la à l'utilisateur actuel
-        reservation = Reservation(nom=nom, date=date, heure=heure, depart=depart, destination=destination, user_id=current_user.id)
+        reservation = Reservation(nom=nom, date=date, heure=heure, adresse=adresse, ecole=ecole, user_id=current_user.id)
         db.session.add(reservation)
         db.session.commit()
 
