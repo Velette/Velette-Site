@@ -1,0 +1,274 @@
+/* Reset des marges et du padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Mise en page de la page */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5DC; /* Beige clair */
+    color: #333; /* Texte en gris foncé */
+    line-height: 1.6;
+}
+
+/* Navbar / Bande verte */
+.navbar {
+    background-color: #228B22; /* Vert forêt */
+    margin-bottom: 30px;
+}
+
+.navbar-nav {
+    margin-left: auto;
+}
+
+.navbar-nav .nav-link {
+    font-weight: bold;
+    color: white !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFD700 !important; /* Jaune vif au survol */
+}
+
+/* Section principale (Texte d'accueil) */
+section {
+    padding: 40px 0;
+}
+
+section h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+section p {
+    font-size: 1.25rem;
+}
+
+/* Image principale de Velette */
+img {
+    max-width: 80%;
+    margin-bottom: 20px;
+}
+
+/* Cards Section */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Boutons */
+button, .btn {
+    background-color: #FFD700; /* Jaune doux */
+    color: black;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover, .btn:hover {
+    background-color: #FF6347; /* Orange vif au survol */
+    transform: scale(1.05); /* Agrandissement au survol */
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 1rem;
+    color: white;
+}
+
+/* Container pour centrer le contenu */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Mise en forme des paragraphes */
+p {
+    font-size: 18px;
+    line-height: 1.8; /* Espacement plus grand pour la lisibilité */
+}
+
+/* Mise en forme des cartes d'abonnement */
+.card-title {
+    font-size: 1.5rem;
+    color: #228B22; /* Vert pour le titre */
+    font-weight: bold;
+}
+
+/* Style des prix */
+.card-text {
+    font-size: 1.25rem;
+    color: #555;
+}
+
+/* Section contenant les cartes avec des abonnements et réservations */
+.abonnements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.abonnement {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.abonnement:hover {
+    transform: translateY(-10px); /* Déplace légèrement la carte vers le haut */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+}
+
+/* Style du formulaire */
+.reservation-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+    background-color: #f9f9f9;
+    transition: border 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #228B22; /* Vert forêt */
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* Navbar : fond sombre et éléments alignés à droite */
+.navbar {
+    margin-bottom: 30px;
+}
+
+/* En-tête de la page */
+header {
+    background-color: #228B22; /* Vert forêt */
+    color: white;
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+header p {
+    font-size: 1.25rem;
+    margin-top: 10px;
+}
+
+/* Carousel : adaptation des images */
+.carousel-inner img {
+    width: 100%;
+    height: 450px; /* Taille de l'image pour un aspect plus grand */
+    object-fit: cover; /* Pour que les images remplissent bien l'espace sans distorsion */
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5); /* Légende sombre pour la lisibilité */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.carousel-item {
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Lien Retour à l'accueil */
+a.btn-outline-dark {
+    border: 2px solid #228B22;
+    color: #228B22;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+a.btn-outline-dark:hover {
+    background-color: #228B22;
+    color: white;
+}
+
+/* Ajout d'une marge en bas des cartes */
+.mb-4 {
+    margin-bottom: 30px;
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+    width: 100%;
+}
+
+/* Amélioration du design pour les sections de contenu */
+.container {
+    padding: 0 20px; /* Ajout d'un peu de marge pour ne pas que le contenu touche les bords */
+}
+
+/* Ajout de media queries pour la réactivité sur mobile */
+@media (max-width: 768px) {
+    section h1 {
+        font-size: 2.5rem;
+    }
+
+    section p {
+        font-size: 1.15rem;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    .abonnement {
+        width: 100%;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+}

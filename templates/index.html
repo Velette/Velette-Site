@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velette</title>
+
+    <!-- Lien vers le CDN de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJp8J4S6mhkz9I0KE6Do9NfPUQ9yqj2KBlr+xaKmAVUo3fgI4kc91Dtt6m4k" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- SEO (meta description et keywords) -->
+    <meta name="description" content="Velette - Transport scolaire à Montréal, écologique, rapide et fiable">
+    <meta name="keywords" content="Velette, transport scolaire, Montréal, écologique, rapide, fiable, réservation, abonnement">
+</head>
+<body>
+    <!-- Affichage des messages flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Navbar / Bande verte -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Velette</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/abonnement">Abonnements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reserver">Réserver un trajet</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container py-5">
+        <!-- Section principale (Texte d'accueil) -->
+        <section>
+            <div class="text-center">
+                <h1>Bienvenue sur le site du Velette</h1>
+                <p class="lead">Le transport scolaire de demain, écologique, fiable et rapide !</p>
+            </div>
+
+            <!-- Image de présentation -->
+            <div class="text-center mb-4">
+                <img src="{{ url_for('static', filename='images/velette.jpg') }}" alt="Velette" class="img-fluid rounded" style="max-width: 80%;">
+            </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section class="row justify-content-center">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Réservez un trajet</h5>
+                        <p class="card-text">Planifiez votre trajet dès maintenant !</p>
+                        <a href="/reserver" class="btn btn-success">Réserver un trajet</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Nos abonnements</h5>
+                        <p class="card-text">Découvrez nos offres d'abonnement pour un transport pratique et économique.</p>
+                        <a href="/abonnement" class="btn btn-success">Voir les abonnements</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <div class="container text-center mt-4">
+            <p>Bienvenue, {{ current_user.username }}!</p>
+            <a href="{{ url_for('profil') }}" class="btn btn-primary">Voir mon profil</a>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Se déconnecter</a>
+        </div>
+    {% else %}
+        <div class="container text-center mt-4">
+            <p><a href="{{ url_for('login') }}" class="btn btn-primary">Se connecter</a> | <a href="{{ url_for('signup') }}" class="btn btn-secondary">S'inscrire</a></p>
+        </div>
+    {% endif %}
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>© 2025 Velette - Tous droits réservés</p>
+    </footer>
+
+    <!-- Scripts Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gyb9b4t5Gv3mmBKRnZy3X6kPqaI0v6l5rSTnmt7pBCsw2P0p/We" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-pzjw8f+ua7Kw1TIq0RIq0lqCqvk6MjGbFtm3rdzxE49vW0h6l5kD4CZzF50D96Vx" crossorigin="anonymous"></script>
+
+</body>
+</html>

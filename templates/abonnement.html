@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Contenu spécifique à la page Abonnement -->
+    <header class="text-center py-5 bg-success text-white">
+        <h1>Abonnements disponibles</h1>
+        <p>Choisissez l'abonnement qui vous convient pour profiter du transport scolaire écologique Velette !</p>
+    </header>
+
+    <!-- Section des abonnements -->
+    <div class="container mt-5">
+        <div class="row">
+            {% for type, prix in abonnements.items() %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-success">{{ type }}</h5>
+                            <p class="card-text fw-bold text-muted">{{ prix }} $CAD</p>
+                            <a href="/reserver" class="btn btn-success px-4 py-2">Souscrire</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <header class="text-center py-5 bg-success text-white rounded">
+            <h1>Réservez votre trajet</h1>
+            <p>Complétez le formulaire pour réserver un trajet avec Velette.</p>
+        </header>
+
+        <!-- Affichage des messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-dismissible fade show" role="alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="/reserver" method="POST" class="reservation-form">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Nom :</label>
+                <input type="text" id="nom" name="nom" class="form-control" required placeholder="Entrez votre nom" aria-describedby="nomHelp">
+                <small id="nomHelp" class="form-text text-muted">Votre nom complet pour la réservation.</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="date" class="form-label">Date :</label>
+                <input type="date" id="date" name="date" class="form-control" required aria-describedby="dateHelp">
+                <small id="dateHelp" class="form-text text-muted">Sélectionnez la date de votre trajet.</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="heure" class="form-label">Heure :</label>
+                <input type="time" id="heure" name="heure" class="form-control" required aria-describedby="heureHelp">
+                <small id="heureHelp" class="form-text text-muted">Choisissez l'heure de départ.</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="depart" class="form-label">Départ :</label>
+                <input type="text" id="depart" name="depart" class="form-control" required placeholder="Lieu de départ" aria-describedby="departHelp">
+                <small id="departHelp" class="form-text text-muted">Entrez le lieu de départ.</small>
+            </div>
+
+            <div class="mb-3">
+                <label for="destination" class="form-label">Destination :</label>
+                <input type="text" id="destination" name="destination" class="form-control" required placeholder="Lieu de destination" aria-describedby="destinationHelp">
+                <small id="destinationHelp" class="form-text text-muted">Entrez le lieu de destination.</small>
+            </div>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success btn-lg">Réserver</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

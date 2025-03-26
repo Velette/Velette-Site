@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Bienvenue, {{ current_user.username }}</h2>
+        
+        <!-- Informations du profil -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5>Informations du Profil</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Nom :</strong> {{ current_user.nom }}</p>
+                <p><strong>Prénom :</strong> {{ current_user.prenom }}</p>
+                <p><strong>Ville :</strong> {{ current_user.ville }}</p>
+                <p><strong>Email :</strong> {{ current_user.email }}</p>
+            </div>
+        </div>
+
+        <!-- Affichage des messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-dismissible fade show" role="alert">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h3>Vos réservations :</h3>
+        <!-- Tableau des réservations -->
+        {% if reservations %}
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Heure</th>
+                        <th scope="col">Départ</th>
+                        <th scope="col">Destination</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservation in reservations %}
+                        <tr>
+                            <td>{{ reservation.nom }}</td>
+                            <td>{{ reservation.date }}</td>
+                            <td>{{ reservation.heure }}</td>
+                            <td>{{ reservation.depart }}</td>
+                            <td>{{ reservation.destination }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune réservation pour le moment.</p>
+        {% endif %}
+        
+        <div class="mt-4">
+            <a href="/logout" class="btn btn-danger">Se déconnecter</a>
+        </div>
+    </div>
+{% endblock %}
